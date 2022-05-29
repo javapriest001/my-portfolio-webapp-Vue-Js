@@ -141,10 +141,10 @@ export default {
     data(){
       return{
         navbarItems:[
-          {title: "Home", icon: "mdi-home"},
-          {title: "About  ", icon: "mdi-face-man"},
-          {title: "Blog" , icon: "mdi-newspaper-plus"},
-          {title: "Projects" , icon: "mdi-folder-open-outline"},
+          {title: "Home", icon: "mdi-home"  , to: 'home'},
+          {title: "About  ", icon: "mdi-face-man" , to: 'about'},
+          {title: "Blog" , icon: "mdi-newspaper-plus" , to: 'blog'},
+          {title: "Projects" , icon: "mdi-folder-open-outline" , to: 'projects'},
 
         ],
 

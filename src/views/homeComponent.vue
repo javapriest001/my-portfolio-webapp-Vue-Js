@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
- <v-container  fluid class="container py-5">
+ <v-container  id="home" fluid class="container py-5">
   <v-row class="justify-content-center ">
     <v-col cols="12" md="12" sm="12" xs="12">
       <h4 class="text-muted welcome_text py-5">Hello There! <v-icon small color="#030432"> mdi-hand-wave </v-icon>, My Name Is </h4>
@@ -12,7 +12,7 @@
     </v-col>
   </v-row>
  </v-container>
-  <v-container fluid class="container py-5">
+  <v-container id="about" fluid class="container py-5">
     <v-row justify-content-center class="align-items-center">
       <v-col cols="12" md="6" lg="6" sm="12" >
           <v-img
@@ -43,10 +43,15 @@
               class="mx-2 my-4"
 
           >
-            <v-icon>{{icon.id}}</v-icon>
+            <v-icon color="#060863">{{icon.id}}</v-icon>
           </v-btn>
         </v-row>
-        <v-btn large height="60" class="mt-5 cta_btn" :class="$vuetify.breakpoint.mdAndDown? 'w-100' : ''" outlined elevation="2">Download My CV</v-btn>
+        <v-btn
+            href="/Enwere-Vincent-CV.pdf"
+            large height="60"
+                class="mt-5 cta_btn"
+                :class="$vuetify.breakpoint.mdAndDown? 'w-100' : ''" outlined elevation="2"
+        >Download My CV</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -97,55 +102,102 @@
     </v-col>
   </v-row>
 </v-container>
-  <v-container fluid class="container py-5">
+  <v-container id="projects" fluid class="container py-5">
     <h3 :class="$vuetify.breakpoint.mdAndDown? 'text-center': ''" > My Projects</h3>
     <v-row class="justify-content-center">
-      <v-col cols="12" lg="4" md="4" sm="6" v-for="n in 8" :key="n">
+      <v-col cols="12" lg="4" md="4" sm="6" v-for="project in projects" :key="project.img">
         <v-card
-            class="mx-auto my-12"
+            class="mx-auto my-2"
             max-width="374"
         >
           <v-img
               height="250"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              width="450"
+              :src="project.img"
           ></v-img>
-          <v-card-title>Cafe Badilico</v-card-title>
+          <v-spacer></v-spacer>
+          <v-btn
+              class="ms-3 mt-2"
+              icon
+              elevation="5"
+              large
+              :href="project.url"
+          > <v-icon color="#060863" class="text--white">mdi-github</v-icon></v-btn>
+          <v-btn
+              class="ms-3 mt-2"
+              icon
+              elevation="5"
+              large
+
+          > <v-icon color="#060863" class="text--white">mdi-open-in-new elevation=2</v-icon></v-btn>
+          <v-card-title color="#060863">{{project.title}}</v-card-title>
           <v-card-text>
-            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+            <div>{{project.desc}}</div>
           </v-card-text>
 
           <v-divider class="mx-4"></v-divider>
 
-          <v-card-title>Tonight's availability</v-card-title>
+          <v-card-title color="#060863">Stack Used</v-card-title>
 
           <v-card-text>
             <v-chip-group
                 v-model="selection"
-                active-class="deep-purple accent-4 white--text"
+                active-class="deep-purple accent-4"
                 column
             >
-              <v-chip>5:30PM</v-chip>
+              <v-chip elevation="2" small color="#060863" class="text--white chip">{{project.lang.first}}</v-chip>
 
-              <v-chip>7:30PM</v-chip>
+              <v-chip elevation="2" small color="#060863" class="text--white chip">{{project.lang.second}}</v-chip>
 
-              <v-chip>8:00PM</v-chip>
+              <v-chip elevation="2" small color="#060863" class="text--white chip">{{project.lang.third}}</v-chip>
 
-              <v-chip>9:00PM</v-chip>
+
+<!--              <v-chip>{{project.lang.fourth === '' ?  }}</v-chip>-->
             </v-chip-group>
           </v-card-text>
 
-          <v-card-actions>
-            <v-btn
-                color="deep-purple lighten-2"
-                text
-                @click="reserve"
-            >
-              Reserve
-            </v-btn>
-          </v-card-actions>
+<!--          <v-card-actions>-->
+<!--            <v-btn-->
+<!--                color="deep-purple lighten-2"-->
+<!--                text-->
+<!--                @click="reserve"-->
+<!--            >-->
+<!--              Reserve-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
         </v-card>
       </v-col>
     </v-row>
+  </v-container>
+  <v-container fluid class="container py-5">
+    <v-row class="justify-content-center">
+      <h3 :class="$vuetify.breakpoint.mdAndDown? 'text-center': ''" > Let's Connect</h3>
+      <p class="" :class="$vuetify.breakpoint.mdAndDown? 'text-center': ''">Looking For Seasoned and Value-Oriented Software around you or remotely? </p>
+
+      <v-row :class="$vuetify.breakpoint.mdAndDown? 'justify-content-center': ''">
+        <v-btn
+            icon
+            elevation="3"
+            v-for="icon in social" :key="icon"
+            class="mx-2 my-4"
+            app
+        >
+          <v-icon color="#060863">{{icon.id}}</v-icon>
+        </v-btn>
+      </v-row>
+    </v-row>
+  </v-container>
+
+  <v-container fluid class="container py-5">
+    <v-footer  >
+      <v-col
+          class="text-center"
+          cols="12"
+
+      >
+       &copy; {{ new Date().getFullYear() }} — <strong color="white"> Enwere Vincent</strong>
+      </v-col>
+    </v-footer>
   </v-container>
 
 </div>
@@ -174,6 +226,16 @@ export default {
         {id: 'mdi-linkedin'},
         {id: 'mdi-twitter'},
         {id: 'mdi-instagram'},
+        {id: 'mdi-email'},
+
+      ],
+      projects:[
+        {title: 'E.I.T Timeline Application', img: 'https://i.ibb.co/mCbKfB3/Screenshot-2022-05-29-201411.png' , desc: 'Timeline Application',  lang: {first: 'laravel', second: 'jQuery', third: 'Bootstrap 5'  } , url: 'https://github.com/Cybermatepro/EIT-timelie-Laravel'},
+        {title: 'Personal Portfolio Website', img: 'https://i.ibb.co/wMMGJyP/Screenshot-2022-05-29-193926.png' , desc: 'Personal Portfolio',   lang: {first: 'Vue Js', second: 'Vuetify', third: 'Bootstrap 5'  } , url: 'https://github.com/Cybermatepro/my-portfolio-webapp-Vue-Js'},
+        {title: 'TO-DO Application', img: 'https://i.ibb.co/0yWJgmR/Screenshot-2022-05-29-203537.png' , desc: 'To-Do Application',  lang: {first: 'JavaScript', second: 'HTML/CSS', third: 'Bootstrap 5'  } , url: 'https://github.com/Cybermatepro/To-Do-App'},
+        {title: 'Staff Management Portal', img: 'https://i.ibb.co/dgtB8N1/Screenshot-2022-05-29-200056.png', desc: 'Staff Management Portal',  lang: {first: 'PHP-OOP', second: 'jQuery', third: 'Bootstrap 5', fourth: ''   } , url: 'https://github.com/Cybermatepro/php-timeline-oop'},
+        {title: '4-Point CGPA Calculator', img: 'https://i.ibb.co/BVQLkYT/Screenshot-2022-05-29-200251.png' ,  desc: '4-Point CGPA Calculator',  lang: {first: 'JavaScript', second: 'HTML/CSS', third: 'Bootstrap 5'  } , url: 'https://github.com/Cybermatepro/4-Point-CGPA-Calculator'},
+        {title: 'Local File Submit Portal', img: 'https://i.ibb.co/4FFRJyd/Screenshot-2022-05-29-204057.png' ,  desc: 'Local Submit Application',  lang: {first: 'PHP', second: 'HTML/CSS', third: 'Bootstrap 5'  } , url: 'https://github.com/Cybermatepro/Local-File-Submission-'},
 
       ]
 
@@ -193,7 +255,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Cookie&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,200;0,300;0,700;0,800;1,100;1,300;1,500;1,700&display=swap');
 
 body{
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 
@@ -236,6 +298,9 @@ h3{
 }
 .process_title{
   text-align: center !important;
+}
+.chip{
+  color: white !important;
 }
 @media(max-width: 375px){
   .about_image{
