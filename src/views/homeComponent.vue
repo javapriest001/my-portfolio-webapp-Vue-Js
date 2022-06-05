@@ -50,7 +50,7 @@
             href="/Enwere-Vincent-CV.pdf"
             large height="60"
                 class="mt-5 cta_btn"
-                :class="$vuetify.breakpoint.mdAndDown? 'w-100' : ''" outlined elevation="2"
+                :class="$vuetify.breakpoint.mdAndDown? 'w-100 py-4' : ''" outlined elevation="2"
         >Download My CV</v-btn>
       </v-col>
     </v-row>
